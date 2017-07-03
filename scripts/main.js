@@ -14,6 +14,8 @@ function init(){
   //lights
   var light = new THREE.AmbientLight( 0x404040 ); // soft white light
   scene.add( light );
+  var hemilight = new THREE.HemisphereLight( 0xffffbb, 0x080820, 2);
+  scene.add( hemilight );
   // scene
 	// create renderer
 	renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
@@ -56,12 +58,12 @@ function generateMeshB(geometry, material){
 	geometry.computeVertexNormals();
      var bear = new THREE.Mesh(geometry, material);
     
-		bear.position.y = -100;
+		bear.position.y = -200;
 		bear.position.z = 0;
 		bear.castShadow = true;
 		bear.receiveShadow = true;
-		bear.scale.x = bear.scale.y = bear.scale.z = 10;
-		bear.material[0].shading= THREE.FlatShading;
+
+		bear.scale.x = bear.scale.y = bear.scale.z = 50;
 		scene.add( bear )
 }
 
