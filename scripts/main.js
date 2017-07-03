@@ -63,7 +63,7 @@ function generateMeshB(geometry, material){
 		bear.castShadow = true;
 		bear.receiveShadow = true;
 
-		bear.scale.x = bear.scale.y = bear.scale.z = 50;
+		bear.scale.x = bear.scale.y = bear.scale.z = 10;
 		scene.add( bear )
 }
 
