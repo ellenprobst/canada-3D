@@ -2,12 +2,19 @@
 var renderer, camera, scene;
 
 init();
-
 function init(){
+	
 	// create scene
 	scene = new THREE.Scene();
+	camera = new THREE.OrthographicCamera(window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, - 2000, 1000 );
+	// camera.zoom = 1.5;
+	 camera.updateProjectionMatrix();
 
-
+ 	
+  //lights
+  var light = new THREE.AmbientLight( 0x404040 ); // soft white light
+  scene.add( light );
+  // scene
 	// create renderer
 	renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
 	renderer.setSize(window.innerWidth, window.innerHeight);
@@ -21,7 +28,6 @@ function init(){
 	// loader.load('./scripts/canada.json', generateMeshA );
 
 	loader.load('./scripts/bear.json', generateMeshB );
-
 };
 
 function generateMeshA(geometry, material){
@@ -48,7 +54,6 @@ function generateMeshA(geometry, material){
 
 function generateMeshB(geometry, material){
 	geometry.computeVertexNormals();
-
      var bear = new THREE.Mesh(geometry, material);
     
 		bear.position.y = -100;
@@ -66,12 +71,10 @@ function randBetween(min, max) {
 }
 
 
-function animate() {
-	requestAnimationFrame( animate );
-	
-	render();
-}
 function render() {
+	requestAnimationFrame( render );
 	renderer.render( scene, camera );
 }
+render();
+
 
