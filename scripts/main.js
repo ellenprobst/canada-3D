@@ -71,7 +71,7 @@ function generateBear(geometry, material){
     bear.rotation.y += 1;
 		bear.castShadow = true;  
 		bear.receiveShadow = true;
-		bear.scale.x = bear.scale.y = bear.scale.z = 4;
+		bear.scale.x = bear.scale.y = bear.scale.z = 3;
   	bear.material.forEach(mesh => mesh.shininess = 4);
     TweenMax.to(bear.position, 5, {x:200, repeat: -1});
 
