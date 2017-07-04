@@ -46,13 +46,11 @@ function init(){
   //load mesh
   var loader = new THREE.JSONLoader(); 
   loader.load('https://raw.githubusercontent.com/ellenprobst/canada-3D/master/scripts/bear.json', generateBear );
-  loader.load('https://raw.githubusercontent.com/ellenprobst/canada-3D/master/scripts/landscape.json', generateLandscape );
-  
-  
- 
+  loader.load('https://raw.githubusercontent.com/ellenprobst/canada-3D/master/scripts/landscape.json', generateLandscape ); 
 }
+
 function generateLandscape(geometry, material) {
-	  geometry.computeVertexNormals();
+	geometry.computeVertexNormals();
     var landscape = new THREE.Mesh(geometry, material);
     landscape.position.y = -50;
     landscape.position.z = -230;
@@ -60,11 +58,11 @@ function generateLandscape(geometry, material) {
     landscape.scale.x = landscape.scale.y = landscape.scale.z = 25;
     landscape.receiveShadow = true;
 
-		scene.add( landscape )
+	scene.add( landscape )
 }
   
 function generateBear(geometry, material){
-		geometry.computeVertexNormals();
+	geometry.computeVertexNormals();
     bear = new THREE.Mesh(geometry, material);
 		bear.position.y = -43;  
     bear.position.x = -200; 
@@ -80,7 +78,6 @@ function generateBear(geometry, material){
 }
 
 function spin(){
-  console.log("clicked")
   TweenMax.fromTo(bear.rotation, 3, {y:0}, {y:7})
 }
 
@@ -88,7 +85,6 @@ function spin(){
 function render() {
   renderer.render( scene, camera );
   requestAnimationFrame( render );
-//  bear.rotation.y +=.01;
   document.addEventListener('click', spin);
 
 }
