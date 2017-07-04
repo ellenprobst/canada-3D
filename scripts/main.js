@@ -5,6 +5,7 @@ init();
  
 // init
 function init(){  
+  
   //scene
   scene = new THREE.Scene();
   
@@ -18,21 +19,21 @@ function init(){
   scene.add( light );
   var hemilight = new THREE.HemisphereLight( "#B82D98", "#26688F", .5 );
   scene.add( hemilight ); 
-  	dirLight = new THREE.DirectionalLight( 0xffffff, .6 );
-				dirLight.color.setHSL( 0.1, 1, 0.95 );
-				dirLight.position.set( -1, 1.75, 1 );
-				dirLight.position.multiplyScalar( 50 ); 
-				scene.add( dirLight );
-				dirLight.castShadow = true;
-				dirLight.shadow.mapSize.width = 2048;
-				dirLight.shadow.mapSize.height = 2048;
-				var d = 50;
-				dirLight.shadow.camera.left = -d;
-				dirLight.shadow.camera.right = d;
-				dirLight.shadow.camera.top = d;
-				dirLight.shadow.camera.bottom = -d;
-				dirLight.shadow.camera.far = 3500;
-				dirLight.shadow.bias = -0.0001;
+  dirLight = new THREE.DirectionalLight( 0xffffff, .6 );
+		dirLight.color.setHSL( 0.1, 1, 0.95 );
+		dirLight.position.set( -1, 1.75, 1 );
+		dirLight.position.multiplyScalar( 50 ); 
+		scene.add( dirLight );
+		dirLight.castShadow = true;
+		dirLight.shadow.mapSize.width = 2048;
+		dirLight.shadow.mapSize.height = 2048;
+		var d = 50;
+		dirLight.shadow.camera.left = -d;
+		dirLight.shadow.camera.right = d;
+		dirLight.shadow.camera.top = d;
+		dirLight.shadow.camera.bottom = -d;
+		dirLight.shadow.camera.far = 3500;
+		dirLight.shadow.bias = -0.0001;
 
   // render
   renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
@@ -64,7 +65,7 @@ function generateLandscape(geometry, material) {
 function generateBear(geometry, material){
 	geometry.computeVertexNormals();
     bear = new THREE.Mesh(geometry, material);
-		bear.position.y = -43;  
+	bear.position.y = -43;  
     bear.position.x = -200; 
     bear.position.z = -20; 
     bear.rotation.y += 1;
@@ -89,3 +90,8 @@ function render() {
 
 }
 render(); 
+
+
+// CREDITS:
+// 	Shadow light setup by mirada.com ;
+// 	Low poly-landscape based on tutorial by Karan Shah;
