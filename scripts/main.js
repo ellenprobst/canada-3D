@@ -1,82 +1,95 @@
-// variable for  mesh object
+
 var renderer, camera, scene;
-
+var bear;
 init();
-function init(){
-	
-	// create scene
-	scene = new THREE.Scene();
-	camera = new THREE.OrthographicCamera(window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, - 2000, 1000 );
-	// camera.zoom = 1.5;
-	 camera.updateProjectionMatrix();
-
- 	
+ 
+// init
+function init(){  
+  //scene
+  scene = new THREE.Scene();
+  
+  // camera  
+	camera = new THREE.PerspectiveCamera( 30, window.innerWidth / window.innerHeight, 1, 5000 );
+	camera.position.set( 0, 0, 250 ); 
+	camera.updateProjectionMatrix();
+  
   //lights
-  var light = new THREE.AmbientLight( 3B0544 ); // soft white light
+  var light = new THREE.AmbientLight( "#F8845E", 1.5 ); 
   scene.add( light );
-  var hemilight = new THREE.HemisphereLight( 0xffffbb, 0x080820, 2);
-  scene.add( hemilight );
-  // scene
-	// create renderer
-	renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
+  var hemilight = new THREE.HemisphereLight( "#B82D98", "#26688F", .5 );
+  scene.add( hemilight ); 
+  	dirLight = new THREE.DirectionalLight( 0xffffff, .6 );
+				dirLight.color.setHSL( 0.1, 1, 0.95 );
+				dirLight.position.set( -1, 1.75, 1 );
+				dirLight.position.multiplyScalar( 50 ); 
+				scene.add( dirLight );
+				dirLight.castShadow = true;
+				dirLight.shadow.mapSize.width = 2048;
+				dirLight.shadow.mapSize.height = 2048;
+				var d = 50;
+				dirLight.shadow.camera.left = -d;
+				dirLight.shadow.camera.right = d;
+				dirLight.shadow.camera.top = d;
+				dirLight.shadow.camera.bottom = -d;
+				dirLight.shadow.camera.far = 3500;
+				dirLight.shadow.bias = -0.0001;
+
+  // render
+  renderer = new THREE.WebGLRenderer({alpha: true, antialias: true});
 	renderer.setSize(window.innerWidth, window.innerHeight);
 	renderer.shadowMap.enabled = true;
 	renderer.shadowMap.renderReverseSided = false;
-
-	// append it to the DOM
-	document.body.appendChild(renderer.domElement);
-
-	 var loader = new THREE.JSONLoader();
-	// loader.load('./scripts/canada.json', generateMeshA );
-
-	loader.load('./scripts/bear.json', generateMeshB );
-};
-
-function generateMeshA(geometry, material){
-	geometry.computeVertexNormals();
+  
+  //append it to the DOM	 
+  document.body.appendChild(renderer.domElement);
+  
+  //load mesh
+  var loader = new THREE.JSONLoader(); 
+  loader.load('https://raw.githubusercontent.com/ellenprobst/canada-3D/master/scripts/bear.json', generateBear );
+  loader.load('https://raw.githubusercontent.com/ellenprobst/canada-3D/master/scripts/landscape.json', generateLandscape );
+  
+  
+ 
+}
+function generateLandscape(geometry, material) {
+	  geometry.computeVertexNormals();
     var landscape = new THREE.Mesh(geometry, material);
-    
-			landscape.position.y = -30;
-			landscape.position.z = 0;
-			landscape.material[0].shading= THREE.FlatShading;
-			landscape.material[1].shading= THREE.FlatShading;
-			landscape.material[2].shading= THREE.FlatShading;
-			landscape.material[3].shading= THREE.FlatShading;
-			landscape.material[4].shading= THREE.FlatShading;
-			landscape.material[5].shading= THREE.FlatShading;
-			landscape.material[6].shading= THREE.FlatShading;
-			landscape.material[7].shading= THREE.FlatShading;
-			landscape.material[8].shading= THREE.FlatShading;
+    landscape.position.y = -50;
+    landscape.position.z = -230;
 
-		landscape.scale.x = landscape.scale.y = landscape.scale.z = 40;
-						landscape.receiveShadow = true;
+    landscape.scale.x = landscape.scale.y = landscape.scale.z = 25;
+    landscape.receiveShadow = true;
 
 		scene.add( landscape )
 }
-
-function generateMeshB(geometry, material){
-	geometry.computeVertexNormals();
-       var bear = new THREE.Mesh(geometry, material);
-		bear.position.y = -33; 
-    bear.position.x = -50; 
-		bear.castShadow = true;
+  
+function generateBear(geometry, material){
+		geometry.computeVertexNormals();
+    bear = new THREE.Mesh(geometry, material);
+		bear.position.y = -43;  
+    bear.position.x = -200; 
+    bear.position.z = -20; 
+    bear.rotation.y += 1;
+		bear.castShadow = true;  
 		bear.receiveShadow = true;
-		bear.scale.x = bear.scale.y = bear.scale.z = 10;
- 
-		scene.add(bear)
-		console.log(bear)
+		bear.scale.x = bear.scale.y = bear.scale.z = 4;
+  	bear.material.forEach(mesh => mesh.shininess = 4);
+    TweenMax.to(bear.position, 5, {x:200, repeat: -1});
+
+    scene.add( bear ) 
 }
 
-
-function randBetween(min, max) {
-	return (Math.random() * (max - min)) + min;
+function spin(){
+  console.log("clicked")
+  TweenMax.fromTo(bear.rotation, 3, {y:0}, {y:7})
 }
 
 
 function render() {
-	requestAnimationFrame( render );
-	renderer.render( scene, camera );
+  renderer.render( scene, camera );
+  requestAnimationFrame( render );
+//  bear.rotation.y +=.01;
+  document.addEventListener('click', spin);
+
 }
-render();
-
-
+render(); 
