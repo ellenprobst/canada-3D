@@ -56,7 +56,7 @@ function generateLandscape(geometry, material) {
     landscape.position.y = -50;
     landscape.position.z = -230;
 
-    landscape.scale.x = landscape.scale.y = landscape.scale.z = 25;
+    landscape.scale.x = landscape.scale.y = landscape.scale.z = 22;
     landscape.receiveShadow = true;
 
 	scene.add( landscape )
@@ -65,7 +65,7 @@ function generateLandscape(geometry, material) {
 function generateBear(geometry, material){
 	geometry.computeVertexNormals();
     bear = new THREE.Mesh(geometry, material);
-	bear.position.y = -40;  
+	bear.position.y = -45;  
     bear.position.x = -200; 
     bear.position.z = -20; 
     bear.rotation.y += 1;
