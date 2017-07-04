@@ -27,7 +27,7 @@ function init(){
 		dirLight.castShadow = true;
 		dirLight.shadow.mapSize.width = 2048;
 		dirLight.shadow.mapSize.height = 2048;
-		var d = 50;
+		var d = 150;
 		dirLight.shadow.camera.left = -d;
 		dirLight.shadow.camera.right = d;
 		dirLight.shadow.camera.top = d;
@@ -65,7 +65,7 @@ function generateLandscape(geometry, material) {
 function generateBear(geometry, material){
 	geometry.computeVertexNormals();
     bear = new THREE.Mesh(geometry, material);
-	bear.position.y = -43;  
+	bear.position.y = -40;  
     bear.position.x = -200; 
     bear.position.z = -20; 
     bear.rotation.y += 1;
