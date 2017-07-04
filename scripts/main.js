@@ -12,7 +12,7 @@ function init(){
 
  	
   //lights
-  var light = new THREE.AmbientLight( 0x404040 ); // soft white light
+  var light = new THREE.AmbientLight( 3B0544 ); // soft white light
   scene.add( light );
   var hemilight = new THREE.HemisphereLight( 0xffffbb, 0x080820, 2);
   scene.add( hemilight );
@@ -56,15 +56,15 @@ function generateMeshA(geometry, material){
 
 function generateMeshB(geometry, material){
 	geometry.computeVertexNormals();
-     var bear = new THREE.Mesh(geometry, material);
-    
-		bear.position.y = -200;
-		bear.position.z = 0;
+       var bear = new THREE.Mesh(geometry, material);
+		bear.position.y = -33; 
+    bear.position.x = -50; 
 		bear.castShadow = true;
 		bear.receiveShadow = true;
-
 		bear.scale.x = bear.scale.y = bear.scale.z = 10;
-		scene.add( bear )
+ 
+		scene.add(bear)
+		console.log(bear)
 }
 
 
